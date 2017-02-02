@@ -2,7 +2,7 @@
 
 from node import *
 
-def removeDuplicates(head):
+'''def removeDuplicates(head):
 	"""Solution with a temp buffer. 
 	Time complexity: O(N)  - Linear progression through the list in iteration 1, linear progression through the list in iteration 2 = O(2N) = O(N)
 	Space complexity: O(N) - the dictionary is the only data structure and it grows linearly = O(N)
@@ -32,6 +32,27 @@ def removeDuplicates(head):
 				node.next = node.next.next
 			duplicates[node.data] -= 1
 		
+		node = node.next
+
+	return head'''
+
+def removeDuplicates(head):
+	"""Solution without a temp buffer. 
+	Time complexity: O(N^2)  - For each node, iterate over all previous nodes = O(N^2)
+	Space complexity: O(1) - No data structure used, just an additional instance of Node
+	"""
+	node = head
+
+	while node:
+		duplicateChecker = head
+		count = 0
+		while duplicateChecker and duplicateChecker != node:
+			if duplicateChecker.data == node.data: # Deletion
+				if duplicateChecker == head: 
+					head = head.next # Reassign head
+				elif duplicateChecker.next:
+					duplicateChecker.next = duplicateChecker.next.next # Removes the node
+			duplicateChecker = duplicateChecker.next
 		node = node.next
 
 	return head
